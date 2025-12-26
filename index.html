@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>REVISIÓN - Muichiro</title>
+    <title>Muichiro Quest - Final</title>
     <style>
         :root { --cyan: #5de2e7; --dark: #0b1014; }
         body { font-family: 'Segoe UI', Tahoma, sans-serif; background: var(--dark); color: white; margin: 0; padding: 0; text-align: center; }
@@ -14,13 +14,26 @@
         .intro-text { font-style: italic; color: #a0eef0; text-align: left; font-size: 0.95rem; line-height: 1.5; border-left: 3px solid var(--cyan); padding-left: 15px; margin: 20px 0; }
         h1 { color: var(--cyan); letter-spacing: 1px; font-size: 1.4rem; }
         h2 { color: var(--cyan); font-size: 1.1rem; }
-        p { line-height: 1.4; font-size: 0.95rem; }
         input { width: 85%; padding: 12px; margin: 15px 0; border-radius: 10px; border: 1px solid var(--cyan); background: #111; color: white; text-align: center; }
         button { background: var(--cyan); color: #0b1014; border: none; padding: 15px 30px; font-weight: bold; border-radius: 50px; cursor: pointer; width: 100%; font-size: 1rem; }
         .step { display: none; }
         .active { display: block; animation: fadeIn 0.4s; }
         @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+        
         .prize-banner { background: #fff; color: #000; padding: 20px; border-radius: 15px; font-weight: bold; margin-top: 20px; border: 3px dashed var(--cyan); line-height: 1.6; }
+        
+        /* Estilo para la Posdata de Muichiro */
+        .posdata { 
+            margin-top: 25px; 
+            padding: 15px; 
+            background: rgba(93, 226, 231, 0.1); 
+            border-radius: 15px; 
+            text-align: left; 
+            font-size: 0.9rem; 
+            line-height: 1.6; 
+            border: 1px solid rgba(93, 226, 231, 0.3);
+        }
+        .posdata b { color: var(--cyan); }
     </style>
 </head>
 <body>
@@ -48,7 +61,6 @@
                     <input type="number" id="ans2">
                     <button onclick="validar1()">SIGUIENTE</button>
                 </div>
-
                 <div id="day2" class="step">
                     <h2>DÍA 2</h2>
                     <p>¿Nombre de la 7ma postura?</p>
@@ -57,7 +69,6 @@
                     <input type="text" id="ans4">
                     <button onclick="validar2()">SIGUIENTE</button>
                 </div>
-
                 <div id="day3" class="step">
                     <h2>DÍA 3</h2>
                     <p>¿Forma de la marca?</p>
@@ -72,14 +83,20 @@
                 <h1 style="color: var(--cyan);">✨ MEMORIA RECUPERADA ✨</h1>
                 <img src="tenor.gif" style="width:100%; border-radius:15px; margin-bottom:15px;">
                 
-                <p style="font-style: italic; color: #a0eef0;">
-                    "Incluso si pierdes tus recuerdos, tu cuerpo siempre recordará la fuerza de tu corazón. Has demostrado que tu brillo es capaz de iluminar hasta la noche más oscura."
+                <p style="font-style: italic; color: #a0eef0; padding: 0 10px;">
+                    "Incluso si pierdes tus recuerdos, tu cuerpo siempre recordará la fuerza de tu corazón."
                 </p>
 
                 <div class="prize-banner">
                     <span style="font-size: 1.2rem;">🏆 ¡MISIÓN CUMPLIDA!</span><br><br>
                     Encontrarás a Muichiro esperándote en tu habitación...<br>
                     <span style="color: #008080; font-size: 1.1rem;">¡VE Y RESCÁTALO!</span>
+                </div>
+
+                <div class="posdata">
+                    <b>P.D. de Muichiro:</b><br>
+                    "He dejado algo más para ti junto a mí: un <b>Atrapasueños</b>. Es un amuleto antiguo que filtra la niebla de la noche, dejando pasar solo los sueños hermosos y atrapando las pesadillas en su red para que se desvanezcan con el sol. <br><br>
+                    Te lo regalo para que <b>sigas siempre tus sueños</b>, sin importar cuánta adversidad encuentres en el camino. Así como tú me rescataste de la niebla hoy, usa este amuleto para recordarte que siempre puedes rescatarte a ti misma. Tu voluntad es tu luz propia."
                 </div>
             </div>
         </div>
@@ -97,7 +114,7 @@
         if(document.getElementById('ans1').value.toLowerCase().includes("kokushibo") && document.getElementById('ans2').value == "2") {
             document.getElementById('day1').classList.remove('active');
             document.getElementById('day2').classList.add('active');
-        } else { alert("La niebla aún es espesa... revisa tus respuestas."); }
+        } else { alert("Respuesta incorrecta"); }
     }
 
     function validar2() {
@@ -106,7 +123,7 @@
         if((a3.includes("neblina") || a3.includes("oboro")) && a4.includes("kanamori")) {
             document.getElementById('day2').classList.remove('active');
             document.getElementById('day3').classList.add('active');
-        } else { alert("La técnica o el herrero no son correctos."); }
+        } else { alert("Respuesta incorrecta"); }
     }
 
     function validar3() {
@@ -115,7 +132,7 @@
         if(a5.includes("nube") && (a6.includes("telas") || a6.includes("guardamano"))) {
             document.getElementById('game-content').style.display = 'none';
             document.getElementById('final').classList.add('active');
-        } else { alert("El último recuerdo se resiste... ¡tú puedes!"); }
+        } else { alert("Respuesta incorrecta"); }
     }
 </script>
 </body>
