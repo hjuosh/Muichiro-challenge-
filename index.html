@@ -5,98 +5,108 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>REVISIÓN - Muichiro</title>
     <style>
-        body { background: #0b1014; color: white; font-family: sans-serif; text-align: center; padding: 20px; }
-        .box { max-width: 400px; margin: auto; border: 2px solid #5de2e7; padding: 20px; border-radius: 20px; background: rgba(255,255,255,0.05); }
-        img { width: 100%; border-radius: 15px; margin-bottom: 15px; border: 1px solid #5de2e7; }
-        .intro { text-align: left; font-style: italic; color: #a0eef0; border-left: 3px solid #5de2e7; padding-left: 10px; margin: 15px 0; }
-        button { background: #5de2e7; border: none; padding: 15px; width: 100%; border-radius: 50px; font-weight: bold; cursor: pointer; margin-top: 10px; color: #000; }
-        input { width: 85%; padding: 12px; margin: 10px 0; border-radius: 10px; border: 1px solid #5de2e7; background: #111; color: white; text-align: center; }
+        :root { --cyan: #5de2e7; --dark: #0b1014; }
+        body { font-family: 'Segoe UI', Tahoma, sans-serif; background: var(--dark); color: white; margin: 0; padding: 0; text-align: center; }
+        .main-wrapper { background: linear-gradient(180deg, #0b1014 0%, #1a2d2f 100%); min-height: 100vh; padding: 20px; }
+        .container { max-width: 400px; margin: auto; }
+        .hero-img { width: 100%; border-radius: 20px; border: 2px solid var(--cyan); box-shadow: 0 0 25px rgba(93, 226, 231, 0.4); margin-bottom: 20px; }
+        .card { background: rgba(255, 255, 255, 0.08); backdrop-filter: blur(12px); border-radius: 25px; padding: 25px; border: 1px solid rgba(93, 226, 231, 0.2); }
+        .intro-text { font-style: italic; color: #a0eef0; text-align: left; font-size: 0.95rem; line-height: 1.5; border-left: 3px solid var(--cyan); padding-left: 15px; margin: 20px 0; }
+        h1 { color: var(--cyan); letter-spacing: 1px; font-size: 1.4rem; }
+        h2 { color: var(--cyan); font-size: 1.1rem; }
+        input { width: 85%; padding: 12px; margin: 15px 0; border-radius: 10px; border: 1px solid var(--cyan); background: #111; color: white; text-align: center; }
+        button { background: var(--cyan); color: #0b1014; border: none; padding: 15px 30px; font-weight: bold; border-radius: 50px; cursor: pointer; width: 100%; font-size: 1rem; }
         .step { display: none; }
         .active { display: block; animation: fadeIn 0.4s; }
         @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
-        .test-banner { background: yellow; color: black; font-size: 0.7rem; font-weight: bold; padding: 5px; margin-bottom: 10px; border-radius: 5px; }
+        .prize-banner { background: #fff; color: #000; padding: 15px; border-radius: 15px; font-weight: bold; margin-top: 20px; border: 3px dashed var(--cyan); }
     </style>
 </head>
 <body>
 
-<div class="box">
-    <div class="test-banner">MODO REVISIÓN: TODO DESBLOQUEADO</div>
-    
-    <img src="muichiro-tokito.jpg" alt="Muichiro Principal">
+<div class="main-wrapper">
+    <div class="container">
+        <img src="muichiro-tokito.jpg" class="hero-img">
 
-    <div id="pantalla-inicio" class="active">
-        <h1>MUICHIRO QUEST</h1>
-        <div class="intro">
-            "La niebla no oculta el camino... la voluntad es el sol que disipa las nubes."
+        <div class="card">
+            <div id="intro-screen" class="active">
+                <h1>MUICHIRO QUEST</h1>
+                <div class="intro-text">
+                    "La niebla no está ahí para ocultar el camino, sino para recordarte que debes mirar con el corazón. <br><br>
+                    A veces olvidamos quiénes somos, pero la voluntad es como el sol: siempre termina disipando las nubes."
+                </div>
+                <button onclick="saltar('intro-screen', 'day1')">COMENZAR (MODO TEST)</button>
+            </div>
+
+            <div id="game-content" style="display:none;">
+                <div id="day1" class="step">
+                    <h2>DÍA 1</h2>
+                    <p>¿Luna Superior ancestro?</p>
+                    <input type="text" id="ans1">
+                    <p>¿Meses para ser Pilar?</p>
+                    <input type="number" id="ans2">
+                    <button onclick="validar1()">SIGUIENTE (TEST DÍA 2)</button>
+                </div>
+
+                <div id="day2" class="step">
+                    <h2>DÍA 2</h2>
+                    <p>¿Nombre de la 7ma postura?</p>
+                    <input type="text" id="ans3">
+                    <p>¿Nombre del herrero?</p>
+                    <input type="text" id="ans4">
+                    <button onclick="validar2()">SIGUIENTE (TEST DÍA 3)</button>
+                </div>
+
+                <div id="day3" class="step">
+                    <h2>DÍA 3</h2>
+                    <p>¿Forma de la marca?</p>
+                    <input type="text" id="ans5">
+                    <p>¿Detalle en la espada?</p>
+                    <input type="text" id="ans6">
+                    <button onclick="validar3()">VER FINAL</button>
+                </div>
+            </div>
+
+            <div id="final" class="step">
+                <h1 style="color: var(--cyan);">✨ LOGRADO ✨</h1>
+                <img src="tenor.gif" style="width:100%; border-radius:15px; margin-bottom:15px;">
+                <div class="prize-banner">PELUCHE DE MUICHIRO</div>
+            </div>
         </div>
-        <button onclick="cambiar('pantalla-inicio', 'dia1')">PROBAR DÍA 1</button>
-    </div>
-
-    <div id="dia1" class="step">
-        <h2>DÍA 1</h2>
-        <p>¿Luna Superior ancestro?</p>
-        <input type="text" id="ans1" placeholder="Respuesta: Kokushibo">
-        <p>¿Meses para ser Pilar?</p>
-        <input type="number" id="ans2" placeholder="2">
-        <button onclick="validar1()">PROBAR DÍA 2</button>
-    </div>
-
-    <div id="dia2" class="step">
-        <h2>DÍA 2</h2>
-        <p>¿7ma postura?</p>
-        <input type="text" id="ans3" placeholder="Respuesta: Neblina">
-        <p>¿Nombre del herrero?</p>
-        <input type="text" id="ans4" placeholder="Respuesta: Kanamori">
-        <button onclick="validar2()">PROBAR DÍA 3</button>
-    </div>
-
-    <div id="dia3" class="step">
-        <h2>DÍA 3</h2>
-        <p>¿Forma de la marca?</p>
-        <input type="text" id="ans5" placeholder="Respuesta: Nubes">
-        <p>¿Detalle en la espada?</p>
-        <input type="text" id="ans6" placeholder="Respuesta: Guardamano">
-        <button onclick="validar3()">VER PANTALLA FINAL</button>
-    </div>
-
-    <div id="final" class="step">
-        <h1 style="color: #5de2e7;">¡LOGRADO!</h1>
-        <img src="tenor.gif" alt="GIF Final">
-        <p>Has ganado tu Peluche de Muichiro.</p>
-        <button onclick="location.reload()">REINICIAR</button>
     </div>
 </div>
 
 <script>
-    // Función simple para cambiar de pantalla sin mirar fechas
-    function cambiar(actual, proximo) {
+    // ESTA VERSIÓN NO TIENE FECHAS PARA QUE PUEDAS REVISARLA TODA AHORA
+    function saltar(actual, siguiente) {
         document.getElementById(actual).style.display = 'none';
-        document.getElementById(proximo).style.display = 'block';
-        document.getElementById(proximo).classList.add('active');
+        document.getElementById('game-content').style.display = 'block';
+        document.getElementById(siguiente).classList.add('active');
     }
 
     function validar1() {
-        let r1 = document.getElementById('ans1').value.toLowerCase();
-        let r2 = document.getElementById('ans2').value;
-        if(r1.includes("kokushibo") && r2 == "2") {
-            cambiar('dia1', 'dia2');
-        } else { alert("Revisa el Día 1"); }
+        if(document.getElementById('ans1').value.toLowerCase().includes("kokushibo") && document.getElementById('ans2').value == "2") {
+            document.getElementById('day1').classList.remove('active');
+            document.getElementById('day2').classList.add('active');
+        } else { alert("Respuesta incorrecta"); }
     }
 
     function validar2() {
-        let r3 = document.getElementById('ans3').value.toLowerCase();
-        let r4 = document.getElementById('ans4').value.toLowerCase();
-        if((r3.includes("neblina") || r3.includes("oboro")) && r4.includes("kanamori")) {
-            cambiar('dia2', 'dia3');
-        } else { alert("Revisa el Día 2"); }
+        let a3 = document.getElementById('ans3').value.toLowerCase();
+        let a4 = document.getElementById('ans4').value.toLowerCase();
+        if((a3.includes("neblina") || a3.includes("oboro")) && a4.includes("kanamori")) {
+            document.getElementById('day2').classList.remove('active');
+            document.getElementById('day3').classList.add('active');
+        } else { alert("Respuesta incorrecta"); }
     }
 
     function validar3() {
-        let r5 = document.getElementById('ans5').value.toLowerCase();
-        let r6 = document.getElementById('ans6').value.toLowerCase();
-        if(r5.includes("nube") && (r6.includes("telas") || r6.includes("guardamano"))) {
-            cambiar('dia3', 'final');
-        } else { alert("Revisa el Día 3"); }
+        let a5 = document.getElementById('ans5').value.toLowerCase();
+        let a6 = document.getElementById('ans6').value.toLowerCase();
+        if(a5.includes("nube") && (a6.includes("telas") || a6.includes("guardamano"))) {
+            document.getElementById('game-content').style.display = 'none';
+            document.getElementById('final').classList.add('active');
+        } else { alert("Respuesta incorrecta"); }
     }
 </script>
 </body>
