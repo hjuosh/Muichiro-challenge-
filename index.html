@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Muichiro Tokito: El Camino de la Niebla</title>
+    <style>
+        :root { --cyan: #5de2e7; --dark: #0d1117; --mist: rgba(93, 226, 231, 0.1); }
+        body { font-family: 'Georgia', serif; background: var(--dark); color: white; text-align: center; padding: 20px; line-height: 1.6; }
+        .box { max-width: 500px; margin: auto; border: 1px solid var(--cyan); padding: 30px; border-radius: 20px; background: var(--mist); box-shadow: 0 0 40px rgba(0,0,0,0.8); }
+        .step { display: none; animation: fadeIn 1.5s; }
+        .active { display: block; }
+        
+        /* Estilo de la Intro */
+        .intro-text { font-style: italic; color: #a0eef0; font-size: 1.1em; margin-bottom: 25px; border-left: 3px solid var(--cyan); padding-left: 15px; text-align: left; }
+        h1 { font-size: 1.8em; letter-spacing: 3px; color: var(--cyan); text-shadow: 0 0 10px var(--cyan); }
+        
+        input { width: 85%; padding: 12px; margin: 15px 0; border-radius: 8px; border: 1px solid var(--cyan); background: rgba(0,0,0,0.6); color: white; font-size: 1em; }
+        button { background: var(--cyan); border: none; padding: 15px 30px; font-weight: bold; border-radius: 50px; cursor: pointer; transition: 0.3s; color: #121212; margin-top: 10px; }
+        button:hover { transform: scale(1.05); background: white; }
+        .locked-msg { border: 1px dashed #444; padding: 20px; border-radius: 10px; color: #888; }
+        
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+    </style>
+</head>
+<body>
+
+<div class="box">
+    <div id="intro-screen" class="step active">
+        <h1>🌫️ CAMINO A LA CLARIDAD</h1>
+        <div class="intro-text">
+            "La niebla no está ahí para ocultar el camino, sino para recordarte que debes mirar con el corazón, no solo con los ojos. <br><br>
+            A veces olvidamos quiénes somos o hacia dónde vamos, pero la voluntad es como el sol: siempre termina disipando las nubes. <br><br>
+            Muichiro ha recuperado su brillo, ahora te toca a ti demostrar que tu determinación es infinita. Despeja la niebla de estos 3 días y reclama lo que te pertenece."
+        </div>
+        <button onclick="startChallenge()">COMENZAR EL DESPERTAR</button>
+    </div>
+
+    <div id="game-content" style="display:none;">
+        <div id="status-msg"></div>
+
+        <div id="day1" class="step">
+            <h2>DÍA 1: Las Raíces de la Niebla</h2>
+            <p>Para saber a dónde vas, debes saber de dónde vienes. <br> ¿De qué Luna Superior es descendiente Muichiro?</p>
+            <input type="text" id="ans1" placeholder="Nombre del ancestro...">
+            <p>El talento florece rápido. ¿En cuántos meses se convirtió en Hashira?</p>
+            <input type="number" id="ans2">
+            <button onclick="checkDay1()">SELLAR DÍA 1</button>
+        </div>
+
+        <div id="day2" class="step">
+            <h2>DÍA 2: La Forja del Espíritu</h2>
+            <p>La espada es una extensión del alma. <br> ¿Cómo se llama la 7ma postura que él creó?</p>
+            <input type="text" id="ans3" placeholder="Nombre de la técnica...">
+            <p>¿Quién es el herrero que confió en su potencial?</p>
+            <input type="text" id="ans4">
+            <button onclick="checkDay2()">SELLAR DÍA 2</button>
+        </div>
+
+        <div id="day3" class="step">
+            <h2>DÍA 3: La Memoria y el Regalo</h2>
+            <p>La marca aparece cuando el corazón arde. <br> ¿Qué forma tiene su marca de cazador?</p>
+            <input type="text" id="ans5">
+            <p>Pregunta final: ¿Qué detalle de su hermano lleva en la guardia de su espada?</p>
+            <input type="text" id="ans6">
+            <button onclick="checkDay3()">DISIPAR LA NIEBLA FINAL</button>
+        </div>
+
+        <div id="final" class="step">
+            <h1>✨ MEMORIA RECUPERADA ✨</h1>
+            <p>"Gracias por ayudarme a recordar. No permitas que nadie apague tu brillo."</p>
+            <div style="background: white; color: black; padding: 20px; border-radius: 15px; margin-top: 20px;">
+                <h3 style="margin:0;">RECOMPENSA DESBLOQUEADA:</h3>
+                <p style="font-size: 1.4em; font-weight: bold; color: #008080;">🧸 PELUCHE DE MUICHIRO 🧸</p>
+            </div>
+            <p style="font-size: 0.8em; margin-top: 15px;">(Aparecerá frente a ti en 3... 2... 1...)</p>
+        </div>
+    </div>
+</div>
+
+<script>
+    // IMPORTANTE: Enero es 0, Diciembre es 11. 
+    // Si hoy es 25 de Dic, pon (2025, 11, 25)
+    const startDate = new Date(2025, 11, 25); 
+    const today = new Date();
+    const diffDays = Math.floor((today - startDate) / (1000 * 60 * 60 * 24)) + 1;
+
+    function startChallenge() {
+        document.getElementById('intro-screen').style.display = 'none';
+        document.getElementById('game-content').style.display = 'block';
+        
+        if (diffDays === 1) document.getElementById('day1').classList.add('active');
+        else if (diffDays === 2) document.getElementById('day2').classList.add('active');
+        else if (diffDays >= 3) document.getElementById('day3').classList.add('active');
+        else {
+            document.getElementById('status-msg').innerHTML = "<div class='locked-msg'>Aún no es tiempo. Medita y vuelve cuando el sol salga.</div>";
+        }
+    }
+
+    function checkDay1() {
+        if(document.getElementById('ans1').value.toLowerCase().includes("kokushibo") && document.getElementById('ans2').value == "2") {
+            alert("¡Día 1 completado! La niebla se aclara un poco. Vuelve mañana.");
+        } else alert("Los recuerdos aún están nublados. Intenta investigar más.");
+    }
+
+    function checkDay2() {
+        let a3 = document.getElementById('ans3').value.toLowerCase();
+        let a4 = document.getElementById('ans4').value.toLowerCase();
+        if((a3.includes("oboro") || a3.includes("neblina")) && a4.includes("kanamori")) {
+            alert("¡Día 2 completado! Casi puedes ver el final del camino. Vuelve mañana.");
+        } else alert("La forja falló. Revisa tus conocimientos.");
+    }
+
+    function checkDay3() {
+        let a5 = document.getElementById('ans5').value.toLowerCase();
+        let a6 = document.getElementById('ans6').value.toLowerCase();
+        if(a5.includes("nube") && (a6.includes("telas") || a6.includes("guardamano") || a6.includes("accesorio"))) {
+            document.getElementById('day3').classList.remove('active');
+            document.getElementById('final').classList.add('active');
+        } else alert("El último recuerdo es el más difícil. ¡No te rindas!");
+    }
+</script>
+
+</body>
+</html>
